@@ -154,7 +154,7 @@ app.use(jwt({
 );
 
 app.use(function(req, res, next) {
-	console.log('app.use(function(req ', req);
+	console.log('app.use(function(req ', req.rawHeaders);
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
