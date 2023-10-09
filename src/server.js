@@ -79,7 +79,6 @@ const corsOptionsDelegate = async function(req, callback) {
 	).split(',')[0];
 
 	const isPublic = await tools.searchInArrayObj(publicRoutes, 'url', req.url);
-	console.log('isPublic', isPublic);
 	const rotasAutorizadas = await rotaAutorizada(req);
 
 	if (isPublic && (isPublic || []).length > 0) {
@@ -138,6 +137,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+
 app.use(compression());
 app.use(cors({ preflightContinue: true }));
 app.use(cors(corsOptionsDelegate));
@@ -150,6 +150,11 @@ app.use(jwt({
 );
 
 app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+
 	req.socket.setNoDelay(true);
 	next();
 });
