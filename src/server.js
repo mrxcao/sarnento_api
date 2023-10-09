@@ -70,6 +70,7 @@ const publicRoutes = [
 
 
 const corsOptionsDelegate = async function(req, callback) {
+	console.log('req.header(Origin)', req.header('Origin'));
 	let corsOptions;
 	const remote = (
 		req.headers['x-forwarded-for'] ||
