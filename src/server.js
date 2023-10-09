@@ -43,6 +43,7 @@ const consultaRotas = async (ip, token) => {
 
 };
 const existeHost = async (dadosToken, ip) => {
+	console.log('existeHost ip', ip, dadosToken);
 	let retorno = false;
 	const hosts = dadosToken.hosts || [];
 	for (const h of hosts) {
@@ -58,7 +59,7 @@ const existeHost = async (dadosToken, ip) => {
 
 const whitelist = ['http://btramos.com',
 	'http://localhost',
-	'http://sarnento.app.br'];
+	'https://sarnento.app.br'];
 const publicRoutes = [
 	{ url: '/', methods: ['GET'] },
 	{ url: /^\/token\/login*/, methods: ['POST'] },
