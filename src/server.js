@@ -108,6 +108,7 @@ const corsOptionsDelegate = async function(req, callback) {
 	}
 };
 const rotaAutorizada = async (req) => {
+	console.log('req', req);
 	const remote = (
 		req.headers['x-forwarded-for'] ||
 		req.connection.remoteAddress ||
