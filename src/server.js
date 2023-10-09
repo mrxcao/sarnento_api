@@ -79,6 +79,7 @@ const corsOptionsDelegate = async function(req, callback) {
 	).split(',')[0];
 
 	const isPublic = await tools.searchInArrayObj(publicRoutes, 'url', req.url);
+	console.log('isPublic', isPublic);
 	const rotasAutorizadas = await rotaAutorizada(req);
 
 	if (isPublic && (isPublic || []).length > 0) {
@@ -167,8 +168,8 @@ app.use('/token', routerToken);
 app.use('/react', routerReact);
 
 // views
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
