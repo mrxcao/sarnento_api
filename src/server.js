@@ -22,6 +22,7 @@ const { expressjwt: jwt } = require('express-jwt');
 
 const tools = require('../modules/tools');
 const consultaRotas = async (ip, token) => {
+	console.log('ip, token', ip, token);
 	const ipHostsAutorizados = [];
 	const dadosToken = await tokenCtrl.show({ ativo: true, token: token });
 	if (((dadosToken || []).ip || []).length < 1) {
