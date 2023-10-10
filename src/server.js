@@ -161,9 +161,8 @@ app.use(function(req, res, next) {
 	console.log('app.use(function(req ', req.rawHeaders);
 
 	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
+	res.header('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET, POST, PUT, DELETE');
+	res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-Auth-Token, Content-Type, Content-Length, Authorization, Access-Control-Allow-Headers, Accept, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Allow-Credentials');
 
 	req.socket.setNoDelay(true);
 	next();
