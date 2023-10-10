@@ -25,6 +25,7 @@ const consultaRotas = async (ip, token) => {
 	console.log('ip, token', ip, token);
 	const ipHostsAutorizados = [];
 	const dadosToken = await tokenCtrl.show({ ativo: true, token: token });
+	console.log('dadosToken', dadosToken);
 	if (((dadosToken || []).ip || []).length < 1) {
 		return dadosToken;
 	}
@@ -81,25 +82,27 @@ const corsOptionsDelegate = async function(req, callback) {
 		req.connection.socket.remoteAddress
 	).split(',')[0];
 
+	console.log('publicRoutes', publicRoutes);
 	const isPublic = await tools.searchInArrayObj(publicRoutes, 'url', req.url);
-	const rotasAutorizadas = await rotaAutorizada(req);
+	console.log('isPublic', isPublic);
 
 	if (isPublic && (isPublic || []).length > 0) {
 		corsOptions = { origin: true };
 	}
-	else if (rotasAutorizadas) {
-		corsOptions = { origin: true };
-	}
-	else if (whitelist.indexOf(req.header('Origin')) !== -1 ||
-			whitelist.indexOf(remote) !== -1
-	) {
-		corsOptions = { origin: true };
-	}
 	else {
-
-		corsOptions = { origin: false };
+		const rotasAutorizadas = await rotaAutorizada(req);
+		if (rotasAutorizadas) {
+			corsOptions = { origin: true };
+		}
+		else if (whitelist.indexOf(req.header('Origin')) !== -1 ||
+			whitelist.indexOf(remote) !== -1
+		) {
+			corsOptions = { origin: true };
+		}
+		else {
+			corsOptions = { origin: false };
+		}
 	}
-
 	if (!corsOptions.origin) {
 		callback(new Error(` Not allowed by CORS .... 
 		                     ${remote}
@@ -110,13 +113,14 @@ const corsOptionsDelegate = async function(req, callback) {
 	}
 };
 const rotaAutorizada = async (req) => {
-	console.log('req', req);
+	console.log('rotaAutorizada', 1);
 	const remote = (
 		req.headers['x-forwarded-for'] ||
 		req.connection.remoteAddress ||
 		req.socket.remoteAddress ||
 		req.connection.socket.remoteAddress
 	).split(',')[0];
+	console.log('rotaAutorizada remote', remote);
 
 	const ip = remote.substring(7, 25);
 	let retorno = false;
@@ -155,6 +159,7 @@ app.use(jwt({
 
 app.use(function(req, res, next) {
 	console.log('app.use(function(req ', req.rawHeaders);
+
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
