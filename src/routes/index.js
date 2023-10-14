@@ -4,8 +4,10 @@ const router = express.Router();
 // eslint-disable-next-line no-unused-vars
 
 router.get('/', function(req, res) {
-	// res.status(200).send('ok');
-	// res.render('index', { status: 'ON' });
+	const data = {
+		ok:true,
+	};
+	res.status(200).send(data);
 });
 
 router.post('/post', async (req, res) => {

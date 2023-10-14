@@ -51,7 +51,7 @@ class UsersController {
 		if (!req.login || !req.password) {
 			throw 'Login fail';
 		}
-		console.log('login req', req);
+		// console.log('login req', req);
 		const data = {
 			login: req.login,
 			password: req.password,

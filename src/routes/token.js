@@ -115,10 +115,10 @@ router.post('/login', async (request, response) => {
 		const login = request.body.login;
 		const password = request.body.password;
 
-		console.log('login, password', login, password);
+		// console.log('login, password', login, password);
 
 		const user = await usersCtrl.login({ login, password });
-		console.log('user', user);
+		// console.log('user', user);
 		if (!user) {
 			response.status(401).send('Login fall');
 		}

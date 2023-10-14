@@ -22,10 +22,10 @@ const { expressjwt: jwt } = require('express-jwt');
 
 const tools = require('../modules/tools');
 const consultaRotas = async (ip, token) => {
-	console.log('ip, token', ip, token);
+	// console.log('ip, token', ip, token);
 	const ipHostsAutorizados = [];
 	const dadosToken = await tokenCtrl.show({ ativo: true, token: token });
-	console.log('dadosToken', dadosToken);
+	// console.log('dadosToken', dadosToken);
 	if (((dadosToken || []).ip || []).length < 1) {
 		return dadosToken;
 	}
@@ -44,7 +44,7 @@ const consultaRotas = async (ip, token) => {
 
 };
 const existeHost = async (dadosToken, ip) => {
-	console.log('existeHost ip', ip, dadosToken);
+	// console.log('existeHost ip', ip, dadosToken);
 	let retorno = false;
 	const hosts = dadosToken.hosts || [];
 	for (const h of hosts) {
@@ -73,7 +73,7 @@ const publicRoutes = [
 
 
 const corsOptionsDelegate = async function(req, callback) {
-	console.log('req.header(Origin)', req.header('Origin'));
+	// console.log('req.header(Origin)', req.header('Origin'));
 	let corsOptions;
 	const remote = (
 		req.headers['x-forwarded-for'] ||
@@ -82,9 +82,9 @@ const corsOptionsDelegate = async function(req, callback) {
 		req.connection.socket.remoteAddress
 	).split(',')[0];
 
-	console.log('publicRoutes', publicRoutes);
+	// console.log('publicRoutes', publicRoutes);
 	const isPublic = await tools.searchInArrayObj(publicRoutes, 'url', req.url);
-	console.log('isPublic', isPublic);
+	// console.log('isPublic', isPublic);
 
 	if (isPublic && (isPublic || []).length > 0) {
 		corsOptions = { origin: true };
@@ -113,14 +113,14 @@ const corsOptionsDelegate = async function(req, callback) {
 	}
 };
 const rotaAutorizada = async (req) => {
-	console.log('rotaAutorizada', 1);
+	// console.log('rotaAutorizada', 1);
 	const remote = (
 		req.headers['x-forwarded-for'] ||
 		req.connection.remoteAddress ||
 		req.socket.remoteAddress ||
 		req.connection.socket.remoteAddress
 	).split(',')[0];
-	console.log('rotaAutorizada remote', remote);
+	// console.log('rotaAutorizada remote', remote);
 
 	const ip = remote.substring(7, 25);
 	let retorno = false;
@@ -158,7 +158,7 @@ app.use(jwt({
 );
 
 app.use(function(req, res, next) {
-	console.log('app.use(function(req ', req.rawHeaders);
+	// console.log('app.use(function(req ', req.rawHeaders);
 
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'OPTIONS, HEAD, GET, POST, PUT, DELETE');
