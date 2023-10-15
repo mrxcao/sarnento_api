@@ -1,5 +1,5 @@
 const mongo = require('../DB/mongo/connect');
-const server = require('../src/init');
+const server = require('../init');
 class Loaders {
 	async init() {
 		await mongo.connect();

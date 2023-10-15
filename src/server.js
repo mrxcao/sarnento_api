@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const dns = require('dns');
 const dnsPromises = dns.promises;
 
-const tokenCtrl = require('../DB/mongo/controllers/token');
+const tokenCtrl = require('./DB/mongo/controllers/token');
 
 
 const cors = require('cors');
@@ -16,11 +16,11 @@ const compression = require('compression');
 
 // const atob = require('atob');
 const key = process.env.AUTH_KEY;
-const isRevokedCallback = require('../modules/isRevokedCallback');
+const isRevokedCallback = require('./modules/isRevokedCallback');
 
 const { expressjwt: jwt } = require('express-jwt');
 
-const tools = require('../modules/tools');
+const tools = require('./modules/tools');
 const consultaRotas = async (ip, token) => {
 	// console.log('ip, token', ip, token);
 	const ipHostsAutorizados = [];

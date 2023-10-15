@@ -1,9 +1,9 @@
 if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
 }
-const tools = require('./modules/tools');
-// const log = require('./modules/log');
-const loaders = require('./classes/Loaders.js');
+const tools = require('./src/modules/tools');
+// const log = require('./src/modules/log');
+const loaders = require('./src/classes/Loaders.js');
 const pack = require('./package.json');
 
 

@@ -1,4 +1,4 @@
-// const mongo = require('../modules/mongo');
+// const mongo = require('./mongo');
 const tokenCtrl = require('../DB/mongo/controllers/token');
 
 module.exports = async (req, payload) => {

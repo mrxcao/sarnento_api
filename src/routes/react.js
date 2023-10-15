@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const triggerTypesCtrl = require('../../DB/mongo/controllers/triggerTypes');
-const doTypesCtrl = require('../../DB/mongo/controllers/doTypes');
-const reactCtrl = require('../../DB/mongo/controllers/react');
+const triggerTypesCtrl = require('../DB/mongo/controllers/triggerTypes');
+const doTypesCtrl = require('../DB/mongo/controllers/doTypes');
+const reactCtrl = require('../DB/mongo/controllers/react');
 
 
 router.get('/', async (request, response) => {

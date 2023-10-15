@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const { newDate } = require('../../modules/tools');
+const { newDate } = require('../modules/tools');
 const moment = require('moment');
 const atob = require('atob');
 const jwt = require('jsonwebtoken');
 const key = process.env.AUTH_KEY;
-const usersCtrl = require('../../DB/mongo/controllers/users');
+const usersCtrl = require('../DB/mongo/controllers/users');
 
-const tokenCtrl = require('../../DB/mongo/controllers/token');
+const tokenCtrl = require('../DB/mongo/controllers/token');
 
 router.get('/dadosToken', async (request, response) => {
 	try {
@@ -149,7 +149,7 @@ router.post('/login', async (request, response) => {
 					avatar: user.avatar },
 			};
 
-			console.log('-- login: ', login, ip, host, userAgent);
+			// console.log('-- login: ', login, ip, host, userAgent);
 			response.status(200).send(ret);
 
 		}
