@@ -5,10 +5,12 @@ const { newDate } = require('../modules/tools');
 const moment = require('moment');
 const atob = require('atob');
 const jwt = require('jsonwebtoken');
-const key = process.env.AUTH_KEY;
-const usersCtrl = require('../DB/mongo/controllers/users');
 
+const usersCtrl = require('../DB/mongo/controllers/users');
 const tokenCtrl = require('../DB/mongo/controllers/token');
+
+const key = process.env.AUTH_KEY;
+const debugMode = process.env.DEBUG === 'true' ? true : false;
 
 router.get('/dadosToken', async (request, response) => {
 	try {
@@ -149,7 +151,7 @@ router.post('/login', async (request, response) => {
 					avatar: user.avatar },
 			};
 
-			// console.log('-- login: ', login, ip, host, userAgent);
+			debugMode ? console.log('-- login: ', login, ip, host, userAgent) : true;
 			response.status(200).send(ret);
 
 		}
