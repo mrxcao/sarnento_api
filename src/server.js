@@ -21,6 +21,14 @@ const isRevokedCallback = require('./modules/isRevokedCallback');
 const { expressjwt: jwt } = require('express-jwt');
 
 const tools = require('./modules/tools');
+
+app.use((req, res, next) => {
+	if (debugMode && req.method !== 'OPTIONS') {
+		console.log('::', req.method, req.url, req.ip, req.get('Origin'), req.rawHeaders[5]);
+	}
+	next();
+});
+
 const consultaRotas = async (ip, token) => {
 	// console.log('ip, token', ip, token);
 	const ipHostsAutorizados = [];
@@ -187,14 +195,6 @@ app.use('/react', routerReact);
 
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-app.use((req, res, next) => {
-	if (debugMode && req.method !== 'OPTIONS') {
-		console.log('::', req.method, req.url, req.ip, req.get('Origin'), req.rawHeaders[5]);
-	}
-	next();
-});
 
 
 module.exports = app;
