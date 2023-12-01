@@ -7,6 +7,7 @@ const lessMiddleware = require('less-middleware');
 const bodyParser = require('body-parser');
 const dns = require('dns');
 const dnsPromises = dns.promises;
+const helmet = require('helmet');
 
 const tokenCtrl = require('./DB/mongo/controllers/token');
 const debugMode = true; // process.env.NODE_ENV === 'Development' ? true : false;
@@ -165,6 +166,7 @@ app.use(jwt({
 	isRevoked: isRevokedCallback,
 }).unless({ path:publicRoutes }),
 );
+app.use(helmet());
 
 app.use(function(req, res, next) {
 	// console.log('app.use(function(req ', req.rawHeaders);
@@ -183,7 +185,6 @@ app.use(function(req, res, next) {
 const routerIndex = require('./routes/index');
 const routerToken = require('./routes/token');
 const routerReact = require('./routes/react');
-
 
 // rotas
 app.use('/', routerIndex);
