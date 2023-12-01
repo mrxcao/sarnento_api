@@ -9,7 +9,7 @@ const dns = require('dns');
 const dnsPromises = dns.promises;
 
 const tokenCtrl = require('./DB/mongo/controllers/token');
-
+const debugMode = true; // process.env.NODE_ENV === 'Development' ? true : false;
 
 const cors = require('cors');
 const compression = require('compression');
@@ -187,5 +187,14 @@ app.use('/react', routerReact);
 
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use((req, res, next) => {
+	if (debugMode && req.method !== 'OPTIONS') {
+		console.log('::', req.method, req.url, req.ip, req.get('Origin'), req.rawHeaders[5]);
+	}
+	next();
+});
+
 
 module.exports = app;
