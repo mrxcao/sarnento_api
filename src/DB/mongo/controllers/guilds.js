@@ -28,6 +28,7 @@ class UsersController {
 			available:req.available,
 			memberCount: req.memberCount,
 			atualizado: new Date(),
+			preferredLocale : req.preferredLocale,
 		};
 
 
@@ -35,6 +36,17 @@ class UsersController {
 		const ret = model.findOneAndUpdate(query, data, { upsert: true });
 		// return res.status(200).json(ret);
 		return ret;
+	}
+	async getMax() {
+		const data = await model.aggregate([
+			{ $group: { _id:null, count:{ $sum:1 } } },
+		]);
+		if (data.length != 0) {
+			return data[0].count;
+		}
+		else {
+			return 0;
+		}
 	}
 }
 

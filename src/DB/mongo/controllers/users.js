@@ -47,11 +47,6 @@ class UsersController {
 	}
 
 	async login(req) {
-
-		if (!req.login || !req.password) {
-			throw 'Login fail';
-		}
-		// console.log('login req', req);
 		const data = {
 			login: req.login,
 			password: req.password,
@@ -71,6 +66,17 @@ class UsersController {
 		}
 	}
 
+	async getMax() {
+		const data = await model.aggregate([
+			{ $group: { _id:null, count:{ $sum:1 } } },
+		]);
+		if (data.length != 0) {
+			return data[0].count;
+		}
+		else {
+			return 0;
+		}
+	}
 }
 
 module.exports = new UsersController();
